@@ -36,7 +36,10 @@ export default function Example() {
                     <div>
                     <button className={btnStyle}>7</button>       <button className={btnStyle}>8</button>       <button className={btnStyle}>9</button>
                     </div>
-                </div>
+                    <div>
+                    <button className={btnStyle} onClick={()=>{buttonValue=1}}>+</button><button className={btnStyle}>-</button>
+                    </div>
+                    </div>
                 <div>
                     <button onClick={()=>{buttonValue=1}}>+</button><button>-</button>
                 </div>
