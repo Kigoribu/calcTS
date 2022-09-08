@@ -3,29 +3,33 @@ import React, { useState } from 'react'
 export default function Example() {
 
     const [count, setCount] = useState(0)
-    const [tempRes, setTempRes] = useState([''])
+    const [tempOut, setTempOut] = useState('')
     
     const btnStyle:string = "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     const inputStyle: string = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-    let buff:number[] = []
+    let tempStrNum:string = ''
 
-    let buttonValue:number
-
-    function plus(a:number, b:number) {
-        buff = []
-        return a+b;
+    function plus(firstvalue:number) {
+        return (secondvalue:number) => {return secondvalue + firstvalue}
     }
 
     function setNum(a:number) {
-        setTempRes(arr => [...arr, `${a.toString()}`])
-        if (buff[0]==undefined) {buff[0]=a}
-        else if (buff[0]!==undefined && buff[1]==undefined) {buff[1]=a}
+        setTempOut(tempOut.concat(a.toString()))
+        tempStrNum.concat(a.toString())
     }
 
     function setSym(symb:string) {
-        {setTempRes(arr => [...arr, `${symb}`])}
-        if (symb==='+') {}
+        {setTempOut(tempOut.concat(symb.toString()))}
+        if (symb==='+') {
+            value = plus(Number(tempStrNum))
+            tempStrNum = ''
+        }
+    }
+
+    function calcResult() {
+        setTempOut(value(Number(tempStrNum)))
+        console.log(value)
     }
 
     return (
@@ -35,7 +39,7 @@ export default function Example() {
 
             <div className='w-96'>
 
-                <input type="text" className={inputStyle} readOnly={true} value={tempRes}></input>
+                <input type="text" className={inputStyle} readOnly={true} value={tempOut}></input>
 
                 <div className="mt-5 grid gap-5 grid-cols-3 justify-between">
 
@@ -50,8 +54,7 @@ export default function Example() {
                     <button className={btnStyle} onClick={()=>setNum(9)}>9</button>
                     <button className={btnStyle} onClick={()=>setSym('+')}>+</button>
                     <button className={btnStyle}>-</button>
-                    <button className={btnStyle} onClick={()=> setCount(plus(buff[0], buff[1]))}>=</button>
-
+                    <button className={btnStyle} onClick={()=>calcResult()}>=</button>
 
                 </div>
 
